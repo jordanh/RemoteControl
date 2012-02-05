@@ -1,0 +1,17 @@
+#inner
+	%h3 Control Panel
+	#control_panel.clearfix
+		.control.clearfix
+			%select{:id=>"gatewaySelect"}
+				%option{:class=>"prompt",:value=>""} Select a Gateway
+			
+			%select{:id=>"xbeeSelect"}
+				%option{:class=>"prompt",:value=>""} Select a XBee
+		
+		.control.clearfix
+			.button.selected
+				/ value of xbee state
+				Open
+			.thumbnail
+				%a{:href=>"", :onclick=>"alert('clicked');"}
+					%img{:src=>"/imgs/default.png"}

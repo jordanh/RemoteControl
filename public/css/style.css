@@ -1,0 +1,101 @@
+/* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */ 
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+body {
+	margin:0;
+	padding:0;
+	color:#454545;
+}
+
+a, a:-webkit-any-link, a:visited {
+	color:#2fb8d0;
+}
+
+
+#wrapper {
+	width:960px;
+	margin:0 auto;
+}
+
+#header {
+	margin:0;
+	height:40px;
+	padding:10px 20px;
+	color:#efefef;
+	font-size: 18px;
+	background: #333333;
+}
+
+#nav_div {
+	float:right;
+}
+
+#main {
+	margin:0;
+	padding:20px;
+}
+
+#loga a, #logo a:hover, #logo a:visited, #logo a:-webkit-any-link {
+	color: #efefef;
+	text-decoration: none;
+	font-size: 30px;
+}
+
+
+#control_panel {
+	width:220px;
+	text-align: center;
+	padding: 10px;
+	margin:auto;
+	border:1px solid #efefef;
+	height:auto;
+}
+
+select {
+	width:100%;
+	font-size: 18px;
+	margin-bottom: 10px;
+	float:right;
+}
+
+select .prompt {
+	color:#efefef;
+}
+
+.control {
+	width:100%;
+	height:auto;
+	padding:10px 0px;
+}
+
+.thumbnail {
+	height:40px;
+	width:40px;
+	border:1px solid #efefef;
+	margin:0;
+	float: left;
+	padding: 2px;
+}
+
+.button {
+	float:right;
+	width:160px;
+	height:40px;
+	padding: 2px;
+	cursor:pointer;
+	-webkit-border-radius: 4px;
+	-webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+	color:#efefef;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.selected {
+	background:#83ad04;
+}
+
+.de-selected {
+	background:#323232;
+}
