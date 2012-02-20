@@ -1,15 +1,16 @@
 #inner
 	%h3 Control Panel
+	
 	#control_panel.clearfix
 		.control.clearfix
 			%select{:id=>"gatewaySelect"}
 				%option{:class=>"prompt",:value=>""} Select a Gateway
-			
+				- @gateway_ids.each do |id|
+					%option{:class=>"prompt",:value=>"#{id}"} #{id}
 			%select{:id=>"xbeeSelect"}
 				%option{:class=>"prompt",:value=>""} Select a XBee
-		
 		.control.clearfix
-			.button.selected
+			.button.selected{:onclick=>"toggleXBee();"}
 				/ value of xbee state
 				Open
 			.thumbnail

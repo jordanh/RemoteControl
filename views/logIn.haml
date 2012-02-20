@@ -1,4 +1,11 @@
 #inner
 	%h3 Log In
+	- if "#{msg}"!=""
+		.alert= "#{msg}"
 	#logInForm
-		
+		%form{:id=>'log_in', :name=>'log_in',:action=>'/logIn',:method=>'post'}
+			%label{:for=>'user_name'} User Name:
+			%input{:id=>'user_name', :name=>'user_name',:type=>'text'}
+			%label{:for=>'user_password'} Password:
+			%input{:id=>'user_password', :name=>'user_password',:type=>'password'}
+			%input{:id=>'submit',:type=>'submit',:value=>'Submit'}

@@ -43,6 +43,12 @@ a, a:-webkit-any-link, a:visited {
 	font-size: 30px;
 }
 
+.alert {
+	border:1px solid red;
+	padding:10px;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
 
 #control_panel {
 	width:220px;

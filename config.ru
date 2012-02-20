@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
-require 'main.rb'
+require 'json'
+require './main.rb'
 
 run Sinatra::Application
