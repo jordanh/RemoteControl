@@ -1,3 +1,5 @@
+// After selecting a gateway id, update the associated list of XBees
+// Gateway JSON object is stored in data attr of #data
 function updateXBeeList(){
 	var gateway_id = $('#gatewaySelect').val();		
 	var json = JSON.parse($("#data").attr('data'));

@@ -11,7 +11,7 @@ require 'json'
 require 'net/http'
 require './src/digiAPI'
 
-enable :sessions
+use Rack::Session::Cookie
 
 configure do
 	## Handle authencation

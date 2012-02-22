@@ -134,10 +134,10 @@ def getGateways
 	uri = "http://developer.idigi.com/ws/DeviceCore/.json"
 	json = JSON digiRequest(uri,'get','')
 		
-	gateway_ids = Hash.new
+	gateways = Hash.new
 	json['items'].each do |i| 
-		gateway_ids[i['devConnectwareId']] = getXBees(i['devConnectwareId'])
+		gateways[i['devConnectwareId']] = getXBees(i['devConnectwareId'])
 	end
 	
-	return gateway_ids
+	return gateways
 end
