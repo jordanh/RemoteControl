@@ -4,5 +4,6 @@ require 'json'
 require 'nokogiri'
 require './main.rb'
 
-use Rack::Session::Cookie
+enable :sessions
+set :session_secret, ENV['SESSION_KEY']
 run Sinatra::Application
