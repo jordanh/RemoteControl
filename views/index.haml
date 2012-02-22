@@ -1,17 +1,19 @@
 #inner
 	%h3 Control Panel
 	#control_panel.clearfix
+		- gateway_str = JSON.dump(@gateway_ids)
+		#data{:data => "#{gateway_str}" }
 		.control.clearfix
-			%select{:id=>"gatewaySelect"}
-				%option{:class=>"prompt",:value=>""} Select a Gateway
-				- @gateway_ids.each do |id|
-					%option{:class=>"prompt",:value=>"#{id}"} #{id}
-			%select{:id=>"xbeeSelect"}
-				%option{:class=>"prompt",:value=>""} Select a XBee
+			%select{:id => "gatewaySelect", :onchange => "updateXBeeList();" }
+				%option{:class => "prompt", :value => ""} Select a Gateway
+				- @gateway_ids.each do |k,v|
+					%option{:class => "prompt",:value => "#{k}"} #{k}
+			%select{:id => "xbeeSelect"}
+				%option{:class => "prompt", :value => ""} Select a XBee
 		.control.clearfix
-			.button.selected{:onclick=>"toggleXBee();"}
+			#button.selected{:onclick => "toggleSensor();"}
 				/ value of xbee state
 				Open
 			.thumbnail
-				%a{:href=>"", :onclick=>"alert('clicked');"}
-					%img{:src=>"/imgs/default.png"}
+				%a{:href => "", :onclick => "alert('clicked');"}
+					%img{:src => "/imgs/default.png"}

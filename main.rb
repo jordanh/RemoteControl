@@ -42,8 +42,6 @@ end
 get '/', :auth => :user do
 	@server = 'http://'+request.env['HTTP_HOST']
    	@gateway_ids = getGateways()
-   	#@gateway_ids = Array.new
-    #puts "gateways"
     haml :index,  :locals => { :title => 'XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
 end
 

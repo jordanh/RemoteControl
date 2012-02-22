@@ -1,24 +1,23 @@
-function checkLogInStatus(){
-
+function updateXBeeList(){
+	var gateway_id = $('#gatewaySelect').val();		
+	var json = JSON.parse($("#data").attr('data'));
+	
+	$("#xbeeSelect > .xbee").remove(); //clean up old xbee list
+	
+	for (var i=0; i<json[gateway_id].length; i++) {
+		var xbee = json[gateway_id][i];
+		$("#xbeeSelect").append("<option class='xbee' value='"+xbee+"'>"+xbee+"</option>");
+	}
 }
 
-function getGatewayList(){
+
+function toggleSensor(){
+	var gateway_id = $('#gatewaySelect').val();	
+	var xbee_id = $('#xbeeSelect').val();	
+	//var state = getSensorState(gateway_id,xbee_id);
+	//state = !state;
 	//$.ajax()
 }
 
 
-function getXbeeList(gateway_id){
-	//$.ajax()
-}
 
-function getSensorState(gateway_id,xbee_id){
-	//$.ajax()
-	return state;
-}
-
-
-function toggleSensor(gateway_id,xbee_id,state){
-	var state = getSensorState(gateway_id,xbee_id);
-	state = !state;
-	//$.ajax()
-}

@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'json'
+require 'nokogiri'
 require 'net/http'
 
 
@@ -62,7 +63,7 @@ end
 ####
 
 def assertXBee(gateway_id,xbee_id)
-	uri = URI("http://developer.idigi.com/ws/sci/.json")
+	uri = "http://developer.idigi.com/ws/sci"
 	msg = '<sci_request version="1.0">
 			  <send_message>
 			    <targets>
@@ -82,8 +83,7 @@ def assertXBee(gateway_id,xbee_id)
 			    </rci_request>
 			  </send_message>
 			</sci_request>'
-	xml = digiRequest(uri,'post',msg)
-	puts xml
+	xml = Nokogiri::XML(digiRequest(uri,'post',msg))
 	return xml
 
 end
@@ -99,8 +99,7 @@ end
 
 
 def getXBees (gateway_id)
-	puts gateway_id
-	uri = URI("http://developer.idigi.com/ws/sci/.json")
+	uri = "http://developer.idigi.com/ws/sci"
 	msg = "<sci_request version='1.0'>
 		  <send_message>
 		    <targets>
@@ -112,9 +111,14 @@ def getXBees (gateway_id)
 		  </send_message>
 		</sci_request>"
 			
-	xml = digiRequest(uri,'post',msg)
-	puts xml
-	return xml
+	xml = Nokogiri::XML(digiRequest(uri,'post',msg))
+	
+	xbees = Array.new
+	xml.xpath('//device//ext_addr').each do |x|
+		xbees.push(x.text)
+	end
+
+	return xbees
 end
 
 ####
@@ -127,14 +131,13 @@ end
 ####
 
 def getGateways
-	uri = URI('http://developer.idigi.com/ws/DeviceCore/.json')
+	uri = "http://developer.idigi.com/ws/DeviceCore/.json"
 	json = JSON digiRequest(uri,'get','')
 		
-	gateway_ids = Array.new
+	gateway_ids = Hash.new
 	json['items'].each do |i| 
-		gateway_ids.push(i['devConnectwareId'])
-		getXBees(i['devConnectwareId'])
+		gateway_ids[i['devConnectwareId']] = getXBees(i['devConnectwareId'])
 	end
-	puts gateway_ids.length
+	
 	return gateway_ids
 end
