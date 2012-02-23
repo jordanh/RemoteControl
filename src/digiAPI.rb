@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'sinatra'
 require 'json'
-require 'nokogiri'
+#require 'nokogiri'
 require 'net/http'
-
+require 'rexml/document'
 
 ####
 #
@@ -83,7 +83,8 @@ def assertXBee(gateway_id,xbee_id)
 			    </rci_request>
 			  </send_message>
 			</sci_request>'
-	xml = Nokogiri::XML(digiRequest(uri,'post',msg))
+	#xml = Nokogiri::XML(digiRequest(uri,'post',msg))
+	xml = REXML::Document.new(digiRequest(uri,'post',msg))
 	return xml
 
 end
@@ -111,10 +112,11 @@ def getXBees (gateway_id)
 		  </send_message>
 		</sci_request>"
 			
-	xml = Nokogiri::XML(digiRequest(uri,'post',msg))
-	
+	#xml = Nokogiri::XML(digiRequest(uri,'post',msg))
+	xml = REXML::Document.new(digiRequest(uri,'post',msg))
 	xbees = Array.new
-	xml.xpath('//device//ext_addr').each do |x|
+	REXML::XPath.match(xml, '//device//ext_addr').each do |x|
+		puts x
 		xbees.push(x.text)
 	end
 
