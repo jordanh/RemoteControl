@@ -40,7 +40,10 @@ def digiRequest (_uri,_type,_msg)
 		req = Net::HTTP::Get.new(uri.request_uri)
 	end
 	
+	puts session[:user_name]
+	puts session[:password]
 	req.basic_auth session[:user_name], session[:password]
+	
 	
 	res = Net::HTTP.start(uri.host, uri.port) do |http|
   		http.request(req,_msg)

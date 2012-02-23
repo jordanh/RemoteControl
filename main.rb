@@ -13,7 +13,6 @@ require './src/digiAPI'
 
 configure do
 	## Handle authencation
-	puts "SESSION AUTH"
 	def auth (type)
   		condition do
     		redirect "/logIn" unless send("is_#{type}?")
@@ -35,8 +34,6 @@ end
 post '/logIn' do
 	session[:user_name] = params[:user_name]
 	session[:password] = params[:user_password]
-	puts "SESSION"
-	puts session[:user_name]
 	redirect '/'
 end
 
