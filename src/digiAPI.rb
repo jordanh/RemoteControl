@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'sinatra'
 require 'json'
-#require 'nokogiri'
 require 'net/http'
 require 'rexml/document'
 
@@ -13,9 +12,8 @@ require 'rexml/document'
 #
 ####
 
-def digiAuth(code,_msg)
-	#msg = "Digi does not recognize your credentials"
-	msg = code+", "+_msg
+def digiAuth
+	msg = "Digi does not recognize your credentials"
 	redirect '/logIn?msg='+URI.escape(msg)
 end
 
@@ -40,10 +38,7 @@ def digiRequest (_uri,_type,_msg)
 		req = Net::HTTP::Get.new(uri.request_uri)
 	end
 	
-	puts session[:user_name]
-	puts session[:password]
 	req.basic_auth session[:user_name], session[:password]
-	
 	
 	res = Net::HTTP.start(uri.host, uri.port) do |http|
   		http.request(req,_msg)
@@ -51,7 +46,7 @@ def digiRequest (_uri,_type,_msg)
 	
 	if res.code!='200'
 		puts res.code, res.msg
-		digiAuth(session[:user_name], session[:password])
+		digiAuth()
 	end
 	return res.body
 
@@ -87,7 +82,6 @@ def assertXBee(gateway_id,xbee_id)
 			    </rci_request>
 			  </send_message>
 			</sci_request>'
-	#xml = Nokogiri::XML(digiRequest(uri,'post',msg))
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
 	return xml
 
@@ -116,11 +110,10 @@ def getXBees (gateway_id)
 		  </send_message>
 		</sci_request>"
 			
-	#xml = Nokogiri::XML(digiRequest(uri,'post',msg))
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
+	
 	xbees = Array.new
 	REXML::XPath.match(xml, '//device//ext_addr').each do |x|
-		puts x
 		xbees.push(x.text)
 	end
 
