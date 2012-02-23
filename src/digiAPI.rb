@@ -51,7 +51,7 @@ def digiRequest (_uri,_type,_msg)
 	
 	if res.code!='200'
 		puts res.code, res.msg
-		digiAuth(res.code, res.msg)
+		digiAuth(session[:user_name], session[:password])
 	end
 	return res.body
 
