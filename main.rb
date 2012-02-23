@@ -40,8 +40,9 @@ post '/logIn' do
 	redirect '/'
 end
 
-get '/', :auth => :user do
-	puts "SESSION",session
+#get '/', :auth => :user do
+get '/'
+	puts "SESSION"
 	@server = 'http://'+request.env['HTTP_HOST']
    	@gateway_ids = getGateways()
     haml :index,  :locals => { :title => 'XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
