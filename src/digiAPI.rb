@@ -13,8 +13,9 @@ require 'rexml/document'
 #
 ####
 
-def digiAuth
-	msg = "Digi does not recognize your credentials"
+def digiAuth(code,_msg)
+	#msg = "Digi does not recognize your credentials"
+	msg = code+", "+_msg
 	redirect '/logIn?msg='+URI.escape(msg)
 end
 
@@ -47,7 +48,7 @@ def digiRequest (_uri,_type,_msg)
 	
 	if res.code!='200'
 		puts res.code, res.msg
-		digiAuth()
+		digiAuth(res.code, res.msg)
 	end
 	return res.body
 
