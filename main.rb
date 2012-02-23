@@ -41,7 +41,7 @@ post '/logIn' do
 end
 
 #get '/', :auth => :user do
-get '/'
+get '/' do
 	puts "SESSION"
 	@server = 'http://'+request.env['HTTP_HOST']
    	@gateway_ids = getGateways()
