@@ -89,6 +89,33 @@ end
 
 ####
 #
+#    function getXBeeState
+#    @params - gateway_id, xbee_id
+#    determine whether xbee is on/off
+#	 @return - 
+#
+####
+
+def getXBeeState (gateway_id,xbee_id) 
+	msg = '<sci_request version="1.0">
+		  <send_message>
+			<targets>
+			  <device id="'+gateway_id+'"/>
+			</targets>
+			<rci_request version="1.1">
+			  <do_command target="xig">
+			    <at hw_address="'+xbee_id+'" command="IS" />       
+			  </do_command>
+			</rci_request>
+		   </send_message>
+		 </sci_request>'
+	uri = "http://developer.idigi.com/ws/sci"
+	xml = REXML::Document.new(digiRequest(uri,'post',msg))
+	return xml
+end
+
+####
+#
 #    function toggleXBee
 #    @params - gateway_id, xbee_id
 #    Switch state of XBee
@@ -113,7 +140,6 @@ def toggleXBee(gateway_id,xbee_id)
 			  </send_message>
 			</sci_request>'
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
-	puts xml
 	return xml
 end
 
@@ -150,27 +176,6 @@ def getXBees (gateway_id)
 	return xbees
 end
 
-
-def testXBee 
-	msg = '<sci_request version="1.0">
-  <send_message>
-    <targets>
-      <device id="00000000-00000000-00409DFF-FF43FA07"/>
-    </targets>
-    <rci_request version="1.1">
-      <do_command target="xig">
-
-        <at hw_address="00:13:a2:00:40:48:5a:23!" command="IS" />       
-
-      </do_command>
-    </rci_request>
-  </send_message>
-</sci_request>'
-	uri = "http://developer.idigi.com/ws/sci"
-	xml = REXML::Document.new(digiRequest(uri,'post',msg))
-	puts xml
-
-end
 
 ####
 #

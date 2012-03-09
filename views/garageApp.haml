@@ -1,0 +1,10 @@
+#inner
+	%h3 Garage Door Opener
+	#control_panel.clearfix
+		.control.clearfix
+			.button.open.selected{:onclick => "toggleSensor('open');"}
+				%span
+					Open Garage
+			.button.close.selected{:onclick => "toggleSensor('closed');"}
+				%span
+					Close Garage

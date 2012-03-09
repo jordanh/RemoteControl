@@ -12,5 +12,4 @@
 			%input{:id=>'submit',:type=>'submit',:value=>'Submit'}
 
 :javascript
-	console.log(document.referrer)
-	$('#referrer').attr('value',document.referrer);
+	$('#referrer').attr('value',getParam('ref'));

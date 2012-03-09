@@ -13,7 +13,6 @@ function updateXBeeList(){
 }
 
 function configureXBee() {
-	//$('#controlPanel').append("div id='test'>Querying…</div>");
 	var params = {
 		gateway_id: $('#gatewaySelect').val()
 		, xbee_id: $('#xbeeSelect').val()
@@ -23,26 +22,41 @@ function configureXBee() {
 		url: '/configureXBee'
 		, data: params
 		, success: function(response){
-			//$('#test').remove();
-			$('#button').removeClass('selected').addClass('de-selected');
-			$('#controlPanel').append("div id='test'>Garage Door Opener Configured. Bookmark.</div>");
-			alert("success");
+			console.log(response);
+			$('.button').removeClass('selected').addClass('de-selected');
+			$('.button').unbind('click');
+			$('#control_panel').append("<div id='test'>Garage Door Opener Configured. Bookmark.</div>");
+			var garage_url = "http://"+document.location.host+"/garageApp?gateway_id="+params.gateway_id+"&xbee_id="+params.xbee_id;
+			$('#control_panel').append("<div id='test2'><a href='"+garage_url+"'</a>"+garage_url+"</div>");
 		}
 	
 	});
 }
 
 
-function toggleSensor(){
-	var gateway_id = $('#gatewaySelect').val();	
-	var xbee_id = $('#xbeeSelect').val();	
-	//var state = getSensorState(gateway_id,xbee_id);
-	//state = !state;
-	//$.ajax()
+function toggleSensor(state){	
+	var params = {
+		gateway_id: getParam('gateway_id')
+		, xbee_id: getParam('xbee_id')
+		, state: state
+	}
+	$.ajax({
+		url: '/toggleXBee'
+		, data: params
+		, success: function(response){
+			console.log(response);
+		}
+	
+	});
 }
 
 
 
-function getReferrer() {
-	return document.referrer;
+function getParam(name){
+	var result = "/";
+	var params = window.location.href.split("?");
+	if (params.length>0) {
+		result = params[1].split(name+"=")[1].split("&")[0];
+	}
+	return result;
 }

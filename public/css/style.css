@@ -85,7 +85,7 @@ select .prompt {
 	padding: 2px;
 }
 
-#button {
+.button {
 	float:right;
 	width:280px;
 	height:40px;
@@ -96,9 +96,10 @@ select .prompt {
 	color:#efefef;
 	font-size: 18px;
 	font-weight: bold;
+	margin-bottom: 20px;
 }
 
-#button span {
+.button span {
 	position: relative;
 	top: 8px;
 }
@@ -108,5 +109,11 @@ select .prompt {
 }
 
 .de-selected {
-	background:#323232;
+	background:#dadada;
+	color:#454545;
+	cursor:default;
+}
+
+.close {
+	background:#bf0405;
 }

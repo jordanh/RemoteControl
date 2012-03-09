@@ -5,63 +5,84 @@
 #
 ####
 
-require 'rubygems'
-require 'sinatra'
-require 'json'
-require 'net/http'
-require './src/digiAPI'
+module Main
+class App < Sinatra::Base
 
-configure do
-	## Handle authencation
-	def auth (type)
-  		condition do
-    		redirect '/logIn' unless send("is_#{type}?")
-  		end
-	end		
+	use Rack::Session::Pool, :expire_after => 2592000
+	set :session_secret, ENV['SESSION_KEY']
+	
+	not_found do
+		redirect '/configuration'
+	end
+	
+	get '/logIn' do
+		@server = 'http://'+request.env['HTTP_HOST']
+	    haml :logIn,  :locals => { :title => 'Log In: XBee Remote Control',:msg => params[:msg],:log_state => "Log In",:log_state_url => '/logIn' }
+	end
+	
+	post '/logIn' do
+		session[:user_name] = params[:user_name]
+		session[:password] = params[:user_password]
+		path = '/configuration'
+		if params[:referrer]!=''
+			path = CGI::unescape(params[:referrer])
+		end
+		redirect path
+	end
+	
+	get '/configuration' do
+		if session[:user_name]!=nil
+			@server = 'http://'+request.env['HTTP_HOST']
+		   	@gateway_ids = getGateways()
+		    haml :index,  :locals => { :title => 'Configure: XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
+		else
+			redirect '/logIn?ref='+CGI::escape(request.fullpath)
+		end
+	end
+	
+	get '/configureXBee' do
+		if session[:user_name]!=nil
+			@xbee_response = configureXBee(params[:gateway_id],params[:xbee_id])
+			return @xbee_response
+		else
+			redirect '/logIn'
+		end
+	end
+	
+	get '/garageApp' do
+		if session[:user_name]!=nil
+			@server = 'http://'+request.env['HTTP_HOST']
+		   	@gateway_ids = getGateways()
+		    haml :garageApp,  :locals => { :title => 'Configure: XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
+		else
+			redirect '/logIn?ref='+CGI::escape(request.fullpath)
+		end
+	end
+	
+	get '/toggleXBee' do
+		if session[:user_name]!=nil
+			@msg = ''
+			@xbee_state = getXBeeState(params[:gateway_id],params[:xbee_id])
+			puts @xbee_state
+			if @xbee_state==params[:state]
+				@msg = "The garage door is already "+params[:state]+"."
+				puts @msg
+				return @msg
+			else
+				toggleXBee(params[:gateway_id],params[:xbee_id])
+				@msg = "Success"
+				return @msg
+			end
+		else
+			redirect '/logIn'
+		end
+	end
+
+	get '/logOut' do
+		session.clear
+		@server = 'http://'+request.env['HTTP_HOST']
+	    haml :logOut,  :locals => { :title => 'Logged Out: XBee Remote Control',:log_state => "Log In",:log_state_url => '/logIn' }
+	end
+	
 end
-
-before do
-	def is_user?
-      	session[:user_name] != nil
-    end    
-end
-
-get '/logIn' do
-	@server = 'http://'+request.env['HTTP_HOST']
-	ref = "/"
-	if /(logIn|logOut)/.match(params[:referrer]) == nil
-		puts "no match"
-    	ref = params[:referrer]
-    end
-    puts ref
-    haml :logIn,  :locals => { :title => 'Log In: XBee Remote Control',:msg => params[:msg],:log_state => "Log In",:log_state_url => '/logIn',:ref => ref }
-end
-
-post '/logIn' do
-	session[:user_name] = params[:user_name]
-	session[:password] = params[:user_password]
-	#return
-	redirect '/'
-end
-
-get '/', :auth => :user do
-	@server = 'http://'+request.env['HTTP_HOST']
-   	@gateway_ids = getGateways()
-    haml :index,  :locals => { :title => 'Configure: XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
-end
-
-get '/configureXBee', :auth => :user do 
-	@xbee_response = configureXBee(params[:gateway_id],params[:xbee_id])
-	return @xbee_response
-end
-
-get '/toggleXBee', :auth => :user do 
-	haml :index,  :locals => { :title => 'XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
-	puts "toggle xbee"
-end
-
-get '/logOut' do
-	session[:user_name] = nil
-	@server = 'http://'+request.env['HTTP_HOST']
-    haml :logOut,  :locals => { :title => 'Logged Out: XBee Remote Control',:log_state => "Log In",:log_state_url => '/logIn' }
 end
