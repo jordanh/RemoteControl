@@ -59,7 +59,7 @@ class App < Sinatra::Base
 	get '/garageApp' do
 		if session[:user_name]!=nil
 			@server = 'http://'+request.env['HTTP_HOST']
-		    haml :garageApp,  :locals => { :title => 'Configure: XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
+		    haml :garageApp,  :locals => { :title => 'Garage Door Remote',:log_state => "Log Out",:log_state_url => '/logOut' }
 		else
 			redirect '/logIn?ref='+CGI::escape(request.fullpath)
 		end
