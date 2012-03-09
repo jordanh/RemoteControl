@@ -74,6 +74,30 @@ a:hover {
 	height:auto;
 }
 
+#current_state {
+	height:auto;
+}
+
+#garage_wrapper {
+	height:240px;
+	width:320px;
+	float:right;
+	margin-bottom: 20px;
+	margin-top:5px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.garage_open {
+	background: url("/imgs/open.JPG") no-repeat center;
+}
+
+.garage_closed {
+	background: url("/imgs/closed.JPG") no-repeat center;
+}
+
+
+
 select {
 	width:100%;
 	font-size: 18px;

@@ -97,7 +97,6 @@ function toggleSensor(state){
 
 
 function getSensorState() {
-	
 	var params = {
 		 gateway_id: getParam('gateway_id'),
 		 xbee_id: getParam('xbee_id')
@@ -110,7 +109,12 @@ function getSensorState() {
 			if (response.match("<")){
 				document.write(response); //hack for when you attempt to use an xbee that is not attached to your name
 			} else {
-				$('#current_state_text').text(response);
+				var old_class = 'closed';
+				if (response=='closed') {
+					old_class = 'open';
+				}
+				$('#garage_wrapper').removeClass('garage_'+old_class).addClass('garage_'+response);
+				$('#current_state_text').text("The garage door is "+response+".");
 			}
 		}
 	});

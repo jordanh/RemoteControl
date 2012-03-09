@@ -24,7 +24,7 @@ class App < Sinatra::Base
 	
 	get '/logIn' do
 		@server = 'http://'+request.env['HTTP_HOST']
-	    haml :logIn,  :locals => { :title => 'Log In: XBee Remote Control',:msg => params[:msg],:log_state => "Log In",:log_state_url => '/logIn' }
+	    haml :logIn,  :locals => { :title => 'Log In: XBee Garage Door',:msg => params[:msg],:log_state => "Log In",:log_state_url => '/logIn' }
 	end
 	
 	post '/logIn' do
@@ -41,7 +41,7 @@ class App < Sinatra::Base
 		if session[:user_name]!=nil
 			@server = 'http://'+request.env['HTTP_HOST']
 		   	@gateway_ids = getGateways()
-		    haml :index,  :locals => { :title => 'Configure: XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
+		    haml :index,  :locals => { :title => 'Configure: XBee Garage Door',:log_state => "Log Out",:log_state_url => '/logOut' }
 		else
 			redirect '/logIn?ref='+CGI::escape(request.fullpath)
 		end
@@ -59,7 +59,7 @@ class App < Sinatra::Base
 	get '/garageApp' do
 		if session[:user_name]!=nil
 			@server = 'http://'+request.env['HTTP_HOST']
-		    haml :garageApp,  :locals => { :title => 'Garage Door Remote',:log_state => "Log Out",:log_state_url => '/logOut' }
+		    haml :garageApp,  :locals => { :title => 'XBee Garage Door',:log_state => "Log Out",:log_state_url => '/logOut' }
 		else
 			redirect '/logIn?ref='+CGI::escape(request.fullpath)
 		end
@@ -89,7 +89,7 @@ class App < Sinatra::Base
 			@msg = ''
 			state_hash = { 'True'=>'open','False'=>'closed' }
 			@xbee_state = getXBeeState(params[:gateway_id],params[:xbee_id])
-			@msg = "The garage door is "+state_hash[@xbee_state]+"."
+			@msg = state_hash[@xbee_state]
 			return @msg
 		else
 			redirect '/logIn'
@@ -99,7 +99,7 @@ class App < Sinatra::Base
 	get '/logOut' do
 		session.clear
 		@server = 'http://'+request.env['HTTP_HOST']
-	    haml :logOut,  :locals => { :title => 'Logged Out: XBee Remote Control',:log_state => "Log In",:log_state_url => '/logIn' }
+	    haml :logOut,  :locals => { :title => 'Logged Out: XBee Garage Door',:log_state => "Log In",:log_state_url => '/logIn' }
 	end
 	
 end
