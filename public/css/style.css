@@ -16,6 +16,10 @@ a, a:visited {
 	color:#2fb8d0;
 }
 
+input,select {
+	font-size:1em;
+}
+
 a:-webkit-any-link {
 	color:#2fb8d0;
 }
