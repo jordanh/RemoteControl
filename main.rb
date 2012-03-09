@@ -61,11 +61,11 @@ class App < Sinatra::Base
 	get '/toggleXBee' do
 		if session[:user_name]!=nil
 			@msg = ''
+			state_hash = { 'True'=>'open','False'=>'closed' }
+			
 			@xbee_state = getXBeeState(params[:gateway_id],params[:xbee_id])
-			puts @xbee_state
-			if @xbee_state==params[:state]
+			if state_hash[@xbee_state]==params[:state]
 				@msg = "The garage door is already "+params[:state]+"."
-				puts @msg
 				return @msg
 			else
 				toggleXBee(params[:gateway_id],params[:xbee_id])

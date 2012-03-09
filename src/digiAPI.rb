@@ -4,6 +4,8 @@ require 'json'
 require 'net/http'
 require 'rexml/document'
 
+use REXML
+
 ####
 #
 #    function digiAuth
@@ -14,6 +16,7 @@ require 'rexml/document'
 
 def digiAuth
 	msg = "Digi does not recognize your credentials"
+	session.clear
 	redirect '/logIn?msg='+URI.escape(msg)
 end
 
@@ -111,7 +114,11 @@ def getXBeeState (gateway_id,xbee_id)
 		 </sci_request>'
 	uri = "http://developer.idigi.com/ws/sci"
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
-	return xml
+	
+	io = REXML::XPath.match(xml, "//io_pin[@name='DIO3']")
+	state = io[0].attributes.get_attribute("value").value
+	
+	return state
 end
 
 ####
