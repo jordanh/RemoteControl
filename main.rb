@@ -83,6 +83,18 @@ class App < Sinatra::Base
 			redirect '/logIn'
 		end
 	end
+	
+	get '/sensorState' do
+		if session[:user_name]!=nil
+			@msg = ''
+			state_hash = { 'True'=>'open','False'=>'closed' }
+			@xbee_state = getXBeeState(params[:gateway_id],params[:xbee_id])
+			@msg = "The garage door is "+state_hash[@xbee_state]+"."
+			return @msg
+		else
+			redirect '/logIn'
+		end
+	end
 
 	get '/logOut' do
 		session.clear

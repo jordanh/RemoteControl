@@ -95,6 +95,29 @@ function toggleSensor(state){
 	});
 }
 
+
+function getSensorState() {
+	
+	var params = {
+		 gateway_id: getParam('gateway_id'),
+		 xbee_id: getParam('xbee_id')
+	}
+		
+	$.ajax({
+		url: '/sensorState'
+		, data: params
+		, success: function(response){
+			if (response.match("<")){
+				document.write(response); //hack for when you attempt to use an xbee that is not attached to your name
+			} else {
+				$('#current_state_text').text(response);
+			}
+		}
+	});
+
+}
+
+
 /*
 	getParam function
 	@params - name : string, key in url parameters
