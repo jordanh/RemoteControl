@@ -12,7 +12,11 @@ body {
 	font-size:1em;
 }
 
-a, a:-webkit-any-link, a:visited {
+a, a:visited {
+	color:#2fb8d0;
+}
+
+a:-webkit-any-link {
 	color:#2fb8d0;
 }
 
