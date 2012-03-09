@@ -1,19 +1,19 @@
 /**
- * A Simple RemoteControl web app for an XBee network
+ * A Simple Remote Control web app for an XBee network
  * This script requires jQuery.
  *
  * @author Margaret McKenna - mlmckenna.com
+ *
 */
 
+
 /*
- *
- * updateXBeeList function
- * @params - none
- * @return - none
- *
- * After selecting a gateway id, update the associated list of XBees
- * Gateway JSON object is stored in data attr of #data
- *
+	updateXBeeList function
+	@params - none
+	@return - none
+	
+	After selecting a gateway id, update the associated list of XBees
+	Gateway JSON object is stored in data attr of #data
 */
 
 function updateXBeeList(){
@@ -29,13 +29,11 @@ function updateXBeeList(){
 }
 
 /*
- *
- * configureXBee function
- * @params - none
- * @return - none
- *
- * Ajax request to configure XBee for garage door opener
- *
+	configureXBee function
+	@params - none
+	@return - none
+	
+	Ajax request to configure XBee for garage door opener
 */
 
 function configureXBee() {
@@ -66,13 +64,11 @@ function configureXBee() {
 }
 
 /*
- *
- * toggleSensor function
- * @params - state : string, "open" or "closed"
- * @return - message from server, or bad credentials page
- *
- * Ajax request to check state of sensor; if state != state of sensor, toggle sensor
- *
+	toggleSensor function
+  	@params - state : string, "open" or "closed"
+  	@return - message from server, or bad credentials page
+ 
+  	Ajax request to check state of sensor; if state != state of sensor, toggle sensor
 */
 
 function toggleSensor(state){	
@@ -100,13 +96,11 @@ function toggleSensor(state){
 }
 
 /*
- *
- * getParam function
- * @params - name : string, key in url parameters
- * @return - value of key; if key does not exist, return "/"
- *
- * Used to pass values on LogIn page and Garage App page
- *
+	getParam function
+	@params - name : string, key in url parameters
+	@return - value of key; if key does not exist, return "/"
+	
+	Used to pass values on LogIn page and Garage App page
 */
 
 function getParam(name){

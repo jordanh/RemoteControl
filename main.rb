@@ -1,7 +1,14 @@
 ####
 #
-#    A Simple RemoteControl web app for an XBee network
+#    A Simple Remote Control web app for an XBee network
 #    @author - Margaret McKenna
+#
+#    Functionality to log in with Digi creditials, configure an XBee
+#    for the Garage Door Remote, and open/close the garage door
+#
+#    Templating is via haml
+#
+#
 #
 ####
 
