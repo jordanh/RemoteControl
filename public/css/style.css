@@ -7,12 +7,18 @@ body {
 	margin:0;
 	padding:0;
 	color:#454545;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 300;
+	font-size:1em;
 }
 
 a, a:-webkit-any-link, a:visited {
 	color:#2fb8d0;
 }
 
+a:hover {
+	color:rgba(47, 184, 208,.5);
+}
 
 #wrapper {
 	width:960px;
@@ -24,23 +30,24 @@ a, a:-webkit-any-link, a:visited {
 	height:40px;
 	padding:10px 20px;
 	color:#efefef;
-	font-size: 18px;
 	background: #333333;
+	-webkit-border-radius:0px 0px 4px 4px;
+	border-radius:0px 0px 4px 4px;
+	font-size: 1.8em;
 }
 
 #nav_div {
 	float:right;
+	font-size:.5em;
+}
+
+#nav_div span {
+	margin-left:5px;
 }
 
 #main {
 	margin:0;
 	padding:20px;
-}
-
-#loga a, #logo a:hover, #logo a:visited, #logo a:-webkit-any-link {
-	color: #efefef;
-	text-decoration: none;
-	font-size: 30px;
 }
 
 .alert {
@@ -66,10 +73,6 @@ select {
 	float:right;
 }
 
-select .prompt {
-	color:#efefef;
-}
-
 .control {
 	width:100%;
 	height:auto;
@@ -93,6 +96,8 @@ select .prompt {
 	height:40px;
 	padding: 2px;
 	cursor:pointer;
+	border-radius: 4px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
 	-webkit-border-radius: 4px;
 	-webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
 	color:#efefef;
@@ -118,4 +123,8 @@ select .prompt {
 
 .close {
 	background:#bf0405;
+}
+
+.message {
+	text-align: left;
 }
