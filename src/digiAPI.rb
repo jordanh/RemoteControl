@@ -86,7 +86,6 @@ def configureXBee(gateway_id,xbee_id)
 			  </send_message>
 			</sci_request>'
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
-	puts xml
 	return xml
 end
 

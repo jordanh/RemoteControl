@@ -1,5 +1,5 @@
 #inner
-	%h3 Garage Door Opener
+	%h3 Garage Door Remote
 	#control_panel.clearfix
 		.control.clearfix
 			#current_state
@@ -14,4 +14,5 @@
 					Close Garage
 			#closed_img.thumbnail
 :javascript
+	getSensorState();
 	setInterval(getSensorState,1000);
