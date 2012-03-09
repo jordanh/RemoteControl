@@ -1,5 +1,5 @@
 #inner
-	%h3 Control Panel
+	%h3 Configuration
 	#control_panel.clearfix
 		- gateway_str = JSON.dump(@gateway_ids)
 		#data{:data => "#{gateway_str}" }
@@ -11,9 +11,10 @@
 			%select{:id => "xbeeSelect"}
 				%option{:class => "prompt", :value => ""} Select a XBee
 		.control.clearfix
-			#button.selected{:onclick => "toggleSensor();"}
+			#button.selected{:onclick => "configureXBee();"}
 				/ value of xbee state
-				Open
+				%span
+					Configure Garage Door Opener
 			.thumbnail
 				%a{:href => "", :onclick => "alert('clicked');"}
 					%img{:src => "/imgs/default.png"}

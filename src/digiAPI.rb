@@ -54,14 +54,14 @@ end
 
 ####
 #
-#    function assertXBee
+#    function configureXBee
 #    @params - gateway_id, xbee_id
 #    check that all XBee I/Os are configured
 #	 @return - boolean OK
 #
 ####
 
-def assertXBee(gateway_id,xbee_id)
+def configureXBee(gateway_id,xbee_id)
 	uri = "http://developer.idigi.com/ws/sci"
 	msg = '<sci_request version="1.0">
 			  <send_message>
@@ -83,8 +83,38 @@ def assertXBee(gateway_id,xbee_id)
 			  </send_message>
 			</sci_request>'
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
+	puts xml
 	return xml
+end
 
+####
+#
+#    function toggleXBee
+#    @params - gateway_id, xbee_id
+#    Switch state of XBee
+#	 @return - boolean OK
+#
+####
+
+def toggleXBee(gateway_id,xbee_id)
+	uri = "http://developer.idigi.com/ws/sci"
+	msg = '<sci_request version="1.0">
+			  <send_message>
+			    <targets>
+			      <device id="'+gateway_id+'"/>
+			    </targets>
+			    <rci_request version="1.1">
+			      <do_command target="xig">
+			        <at hw_address="'+xbee_id+'" command="D1" value="4" apply="True" />      
+			        <at hw_address="'+xbee_id+'" command="D1" value="5" apply="True" />
+			        <at hw_address="'+xbee_id+'" command="D1" value="4" apply="True" />      
+			      </do_command>
+			    </rci_request>
+			  </send_message>
+			</sci_request>'
+	xml = REXML::Document.new(digiRequest(uri,'post',msg))
+	puts xml
+	return xml
 end
 
 ####
@@ -113,11 +143,33 @@ def getXBees (gateway_id)
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
 	
 	xbees = Array.new
-	REXML::XPath.match(xml, '//device//ext_addr').each do |x|
+	REXML::XPath.match(xml, '//discover//device//ext_addr').each do |x|
 		xbees.push(x.text)
 	end
 
 	return xbees
+end
+
+
+def testXBee 
+	msg = '<sci_request version="1.0">
+  <send_message>
+    <targets>
+      <device id="00000000-00000000-00409DFF-FF43FA07"/>
+    </targets>
+    <rci_request version="1.1">
+      <do_command target="xig">
+
+        <at hw_address="00:13:a2:00:40:48:5a:23!" command="IS" />       
+
+      </do_command>
+    </rci_request>
+  </send_message>
+</sci_request>'
+	uri = "http://developer.idigi.com/ws/sci"
+	xml = REXML::Document.new(digiRequest(uri,'post',msg))
+	puts xml
+
 end
 
 ####

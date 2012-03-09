@@ -15,7 +15,7 @@ configure do
 	## Handle authencation
 	def auth (type)
   		condition do
-    		redirect "/logIn" unless send("is_#{type}?")
+    		redirect '/logIn' unless send("is_#{type}?")
   		end
 	end		
 end
@@ -28,19 +28,36 @@ end
 
 get '/logIn' do
 	@server = 'http://'+request.env['HTTP_HOST']
-    haml :logIn,  :locals => { :title => 'Log In: XBee Remote Control',:msg => params[:msg],:log_state => "Log In",:log_state_url => '/logIn' }
+	ref = "/"
+	if /(logIn|logOut)/.match(params[:referrer]) == nil
+		puts "no match"
+    	ref = params[:referrer]
+    end
+    puts ref
+    haml :logIn,  :locals => { :title => 'Log In: XBee Remote Control',:msg => params[:msg],:log_state => "Log In",:log_state_url => '/logIn',:ref => ref }
 end
 
 post '/logIn' do
 	session[:user_name] = params[:user_name]
 	session[:password] = params[:user_password]
+	#return
 	redirect '/'
 end
 
 get '/', :auth => :user do
 	@server = 'http://'+request.env['HTTP_HOST']
    	@gateway_ids = getGateways()
-    haml :index,  :locals => { :title => 'XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
+    haml :index,  :locals => { :title => 'Configure: XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
+end
+
+get '/configureXBee', :auth => :user do 
+	@xbee_response = configureXBee(params[:gateway_id],params[:xbee_id])
+	return @xbee_response
+end
+
+get '/toggleXBee', :auth => :user do 
+	haml :index,  :locals => { :title => 'XBee Remote Control',:log_state => "Log Out",:log_state_url => '/logOut' }
+	puts "toggle xbee"
 end
 
 get '/logOut' do

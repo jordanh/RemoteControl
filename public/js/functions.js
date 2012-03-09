@@ -12,6 +12,26 @@ function updateXBeeList(){
 	}
 }
 
+function configureXBee() {
+	//$('#controlPanel').append("div id='test'>Querying…</div>");
+	var params = {
+		gateway_id: $('#gatewaySelect').val()
+		, xbee_id: $('#xbeeSelect').val()
+	}
+	
+	$.ajax({
+		url: '/configureXBee'
+		, data: params
+		, success: function(response){
+			//$('#test').remove();
+			$('#button').removeClass('selected').addClass('de-selected');
+			$('#controlPanel').append("div id='test'>Garage Door Opener Configured. Bookmark.</div>");
+			alert("success");
+		}
+	
+	});
+}
+
 
 function toggleSensor(){
 	var gateway_id = $('#gatewaySelect').val();	
@@ -23,3 +43,6 @@ function toggleSensor(){
 
 
 
+function getReferrer() {
+	return document.referrer;
+}

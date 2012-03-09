@@ -51,7 +51,7 @@ a, a:-webkit-any-link, a:visited {
 }
 
 #control_panel {
-	width:220px;
+	width:340px;
 	text-align: center;
 	padding: 10px;
 	margin:auto;
@@ -87,15 +87,20 @@ select .prompt {
 
 #button {
 	float:right;
-	width:160px;
+	width:280px;
 	height:40px;
 	padding: 2px;
 	cursor:pointer;
 	-webkit-border-radius: 4px;
 	-webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
 	color:#efefef;
-	font-size: 30px;
+	font-size: 18px;
 	font-weight: bold;
+}
+
+#button span {
+	position: relative;
+	top: 8px;
 }
 
 .selected {

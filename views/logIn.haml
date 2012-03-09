@@ -8,4 +8,9 @@
 			%input{:id=>'user_name', :name=>'user_name',:type=>'text'}
 			%label{:for=>'user_password'} Password:
 			%input{:id=>'user_password', :name=>'user_password',:type=>'password'}
+			%input{:id=>'referrer', :name=>'referrer',:type=>'hidden' }
 			%input{:id=>'submit',:type=>'submit',:value=>'Submit'}
+
+:javascript
+	console.log(document.referrer)
+	$('#referrer').attr('value',document.referrer);
