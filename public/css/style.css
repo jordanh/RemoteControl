@@ -83,6 +83,8 @@ select .prompt {
 	margin:0;
 	float: left;
 	padding: 2px;
+	background: url("/imgs/ajax-loader.gif") no-repeat center;
+	display: none;
 }
 
 .button {

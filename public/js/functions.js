@@ -17,12 +17,13 @@ function configureXBee() {
 		gateway_id: $('#gatewaySelect').val()
 		, xbee_id: $('#xbeeSelect').val()
 	}
-	
+	$('#configure_img').toggle();
 	$.ajax({
 		url: '/configureXBee'
 		, data: params
 		, success: function(response){
 			console.log(response);
+			$('#configure_img').toggle();
 			$('.button').removeClass('selected').addClass('de-selected');
 			$('.button').unbind('click');
 			$('#control_panel').append("<div id='test'>Garage Door Opener Configured. Bookmark.</div>");
@@ -40,10 +41,12 @@ function toggleSensor(state){
 		, xbee_id: getParam('xbee_id')
 		, state: state
 	}
+	$("#"+state+"_img").toggle();
 	$.ajax({
 		url: '/toggleXBee'
 		, data: params
 		, success: function(response){
+			$("#"+state+"_img").toggle();
 			console.log(response);
 		}
 	
