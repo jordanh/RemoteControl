@@ -174,8 +174,11 @@ def getXBees (gateway_id)
 			
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
 	xbees = Array.new
-	REXML::XPath.match(xml, '//discover//device//ext_addr').each do |x|
-		xbees.push(x.text)
+	REXML::XPath.match(xml, '//discover//device').each do |d|
+		#don't add coordinators to xbee list
+		if d.elements['net_addr'].text!="0x0000" 
+			xbees.push(d.elements['ext_addr'].text)
+		end
 	end
 
 	return xbees
