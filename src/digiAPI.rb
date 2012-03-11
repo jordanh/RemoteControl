@@ -173,7 +173,6 @@ def getXBees (gateway_id)
 		</sci_request>"
 			
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
-	
 	xbees = Array.new
 	REXML::XPath.match(xml, '//discover//device//ext_addr').each do |x|
 		xbees.push(x.text)
