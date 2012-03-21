@@ -15,6 +15,8 @@
 module Main
 class App < Sinatra::Base
 
+	use Rack::SSL, :exclude => lambda { |env| env["SERVER_NAME"] == "localhost" }
+	
 	use Rack::Session::Pool, :expire_after => 2592000
 	set :session_secret, ENV['SESSION_KEY']
 	
