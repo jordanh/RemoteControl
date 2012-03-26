@@ -42,23 +42,17 @@ function configureXBee() {
 		xbee_id: $('#xbeeSelect').val()
 	}
 	
-	$('#configure_img').toggle(); //UI ajax indicator
-	$('.message').remove(); //clean up old messages
+	$('.mm-thumbnail').toggle(); //UI ajax indicator
+	$('.alert').remove(); //clean up old messages
 	
 	$.ajax({
 		url: '/configureXBee'
 		, data: params
 		, success: function(response){	
-			//TO DO: check response?
-					
-			$('#configure_img').toggle(); //clean up ajax indicator
-			
-			//Do we want to turn off configure functionality? Or might people want to configure more than one at a time?
-			//$('.button').removeClass('selected').addClass('de-selected'); 
-			//$('.button').unbind('click');
-			
+			$('.mm-thumbnail').toggle(); //clean up ajax indicator
+
 			var garage_url = "http://"+document.location.host+"/garageApp?gateway_id="+params.gateway_id+"&xbee_id="+params.xbee_id;
-			$('#control_panel').append("<div class='message'>Garage Door Opener Configured. Drag link to add it to your bookmarks toolbar. <a href='"+garage_url+"'>Garage App</a></div>");
+			$('#configure').append("<div class='alert alert-success'><h4 class='alert-heading'>Garage Door Remote Configured</h4> Drag link to add it to your bookmarks toolbar. <a href='"+garage_url+"'>Garage App</a></div>");
 		}
 	});
 }
@@ -78,8 +72,8 @@ function toggleSensor(state){
 		 state: state
 	}
 	
-	$("#"+state+"_img").toggle(); //UI ajax indicator
-	$('.message').remove(); //clean up old messages
+	$("#garage-thumbnail").toggle();
+	$("#garage_wrapper").addClass("dimmed");
 	
 	$.ajax({
 		url: '/toggleXBee'
@@ -88,8 +82,10 @@ function toggleSensor(state){
 			if (response.match("<")){
 				document.write(response); //hack for when you attempt to use an xbee that is not attached to your name
 			} else {
-				$("#"+state+"_img").toggle(); //clean up ajax indicator
-				$('#control_panel').append("<div class='message'>"+response+"</div>");
+				$("#garage-thumbnail").toggle();				
+				$('#current_state').append("<div class='message alert alert-info'>"+response+"</div>");
+				$("#garage_wrapper").removeClass("dimmed");
+				$('.message').fadeOut(4000);
 			}
 		}
 	});
@@ -133,8 +129,10 @@ function getSensorState() {
 function getParam(name){
 	var result = "/";
 	var params = window.location.href.split("?");
-	if (params.length>1) {
+	if (params.length>1 & params[1].match(name)!=null) { 
 		result = params[1].split(name+"=")[1].split("&")[0];
 	}
 	return result;
 }
+
+

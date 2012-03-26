@@ -1,24 +1,34 @@
-!!! XML
 !!! 5
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
 	%head
 		%title= "#{title}"
-		%script{:type => "text/javascript", :src  => "/js/jquery-1.6.4.min.js"}
-		%link{:rel => "stylesheet", :href => "/css/style.css"}
-		%link{:rel => "stylesheet", :media => "only screen and (max-device-width: 980px)", :href => "/css/mobile.css"}
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		%script{:type => "text/javascript", :src  => "/js/jquery-1.7.1.min.js"}
+		%link{:rel => "stylesheet", :href => "/css/main.css"}
+		%link{:rel => "stylesheet", :href => "/bootstrap/css/bootstrap.min.css"}
+		%link{:rel => "stylesheet", :media => "only screen and (max-device-width: 980px)", :href => "/bootstrap/css/bootstrap-responsive.min.css"}
+		%link{:rel => "stylesheet", :media => "only screen and (max-device-width: 980px)", :href => "/css/main-mobile.css"}
+		%script{:type => "text/javascript", :src  => "/bootstrap/js/bootstrap.min.js"}
 		%script{:type => "text/javascript", :src  => "/js/functions.js"}
 	%body		
 		#wrapper
 			#header.clearfix
-				#nav_div	
-					%nav
-						%span
-							%a{:href => "/configuration"} Configuration
-						%span
-							%a{:href => "#{log_state_url}", :log_state => "#{log_state}"} #{log_state}
-				#logo
-					#text_logo XBee Garage Door
+				.navbar.navbar-fixed-top	
+					.navbar-inner
+						.container
+							<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span></a>
+
+							%a{:class => "brand", :href => "#"} XBee Garage Door
+							.nav-collapse
+								%ul{:class => "nav pull-right"}
+									%li 
+										%a{:href => "/configuration"} Configuration
+									%li{:class => "divider-vertical"}
+									%li{:class => "visible-phone"}
+										%a{:href => "#{log_state_url}", :log_state => "#{log_state}"} #{log_state}
 			#main
 				=yield
-			#footer
-							
+				
+				%footer{:class=>"mm-footer"}
+					%p{:class=>"pull-right"} Source code at <a href="https://github.com/mlm79/RemoteControl" target="_blank" title="GitHub: Remote Control">Github</a>
+					%p XBee Garage Door by <a href="http://www.mlmckenna.com" target="_blank" title="Margaret McKenna">Margaret McKenna</a>	

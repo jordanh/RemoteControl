@@ -1,18 +1,12 @@
 #inner
-	%h3 Garage Door Remote
-	#control_panel.clearfix
-		.control.clearfix
-			#current_state
-				%span{:id=>'current_state_text'}
-				#garage_wrapper.garage_open
-			.button.open.selected{:onclick => "toggleSensor('open');"}
-				%span
-					Open Garage
-			#open_img.thumbnail
-			.button.close.selected{:onclick => "toggleSensor('closed');"}
-				%span
-					Close Garage
-			#closed_img.thumbnail
+	%legend Garage Door Remote
+	#current_state
+		%button{:id=>'open', :class=>"btn btn-success", :onclick => "toggleSensor('open');"} Open Garage
+		#garage_wrapper.garage_open.thumbnail
+			%p{:id=>'current_state_text'}
+		%button{:id=>'closed', :class=>"btn btn-danger", :onclick => "toggleSensor('closed');"} Close Garage
+		#garage-thumbnail.mm-thumbnail	
+		
 :javascript
 	getSensorState();
 	setInterval(getSensorState,15000);

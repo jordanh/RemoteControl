@@ -1,15 +1,25 @@
-#inner
-	%h3 Log In
-	- if "#{msg}"!=""
-		.alert= "#{msg}"
+#inner	
+	%legend Welcome
 	#logInForm
-		%form{:id=>'log_in', :name=>'log_in',:action=>'/logIn',:method=>'post'}
-			%label{:for=>'user_name'} User Name:
-			%input{:id=>'user_name', :name=>'user_name',:type=>'text'}
-			%label{:for=>'user_password'} Password:
-			%input{:id=>'user_password', :name=>'user_password',:type=>'password'}
-			%input{:id=>'referrer', :name=>'referrer',:type=>'hidden' }
-			%input{:id=>'submit',:type=>'submit',:value=>'Submit'}
+		%form{:id=>'log_in', :class=>"form-horizontal", :name=>'log_in',:action=>'/logIn',:method=>'post'}
+			- if "#{msg}"!=""
+				.alert.alert-error
+					%a{:class => "close", :data => {:dismiss => "alert"}} x
+					%h4{:class => "alert-heading"} Warning
+					= "#{msg}"
+			%fieldset
+				.control-group
+					%label{:for=>'user_name',:class=>"control-label"} User Name
+					.controls
+						%input{:id=>'user_name', :name=>'user_name',:type=>'text'}
+				.control-group
+					%label{:for=>'user_password',:class=>"control-label"} Password
+					.controls
+						%input{:id=>'user_password', :name=>'user_password',:type=>'password'}
+				%input{:id=>'referrer', :name=>'referrer',:type=>'hidden' }
+				.control-group
+					.controls
+						%button{:id=>'submit',:type=>'submit',:class=>'btn btn-primary'} Log In
 
 :javascript
 	$('#referrer').attr('value',getParam('ref'));

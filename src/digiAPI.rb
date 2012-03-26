@@ -15,7 +15,7 @@ use REXML
 ####
 
 def digiAuth
-	msg = "Digi does not recognize your credentials"
+	msg = "iDigi does not recognize your credentials"
 	session.clear
 	redirect '/logIn?msg='+URI.escape(msg)
 end
@@ -99,6 +99,7 @@ end
 ####
 
 def getXBeeState (gateway_id,xbee_id) 
+	uri = "http://developer.idigi.com/ws/sci"
 	msg = '<sci_request version="1.0">
 		  <send_message>
 			<targets>
@@ -111,7 +112,6 @@ def getXBeeState (gateway_id,xbee_id)
 			</rci_request>
 		   </send_message>
 		 </sci_request>'
-	uri = "http://developer.idigi.com/ws/sci"
 	xml = REXML::Document.new(digiRequest(uri,'post',msg))
 	
 	io = REXML::XPath.match(xml, "//io_pin[@name='DIO3']")

@@ -1,18 +1,18 @@
 #inner
-	%h3 Configuration
-	#control_panel.clearfix
+	%legend Configure XBee
+	%form{:id=>'configure', :class=>"form-vertical", :name=>'configure'}
 		- gateway_str = JSON.dump(@gateway_ids)
 		#data{:data => "#{gateway_str}" }
-		.control.clearfix
-			%select{:id => "gatewaySelect", :onchange => "updateXBeeList();" }
-				%option{:class => "prompt", :value => ""} Select a Gateway
-				- @gateway_ids.each do |k,v|
-					%option{:class => "prompt",:value => "#{k}"} #{k}
-			%select{:id => "xbeeSelect"}
-				%option{:class => "prompt", :value => ""} Select a XBee
-		.control.clearfix
-			.button.selected{:onclick => "configureXBee();"}
-				%span
-					Configure Garage Door Opener
-			#configure_img.thumbnail
+		%fieldset
+			.control-group
+				%select{:id => "gatewaySelect" ,:class=>"span4", :onchange => "updateXBeeList();" }
+					%option{:class => "prompt", :value => ""} Select a Gateway
+					- @gateway_ids.each do |k,v|
+						%option{:class => "prompt",:value => "#{k}"} #{k}
+			.control-group
+				%select{:id => "xbeeSelect", :class=>"span4"}
+					%option{:class => "prompt", :value => ""} Select a XBee
+			.control-group#configure-btn
+				%button{:class=>'btn btn-primary', :type=>"button", :onclick => "configureXBee();return false;"} Configure
+				.mm-thumbnail
 				

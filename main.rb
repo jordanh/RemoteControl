@@ -3,7 +3,7 @@
 #    A Simple Remote Control web app for an XBee network
 #    @author - Margaret McKenna
 #
-#    Functionality to log in with Digi creditials, configure an XBee
+#    Functionality to log in with iDigi creditials, configure an XBee
 #    for the Garage Door Remote, and open/close the garage door
 #
 #    Templating is via haml
@@ -15,11 +15,13 @@
 module Main
 class App < Sinatra::Base
 
-	use Rack::SSL, :exclude => lambda { |env| env["SERVER_NAME"] == "localhost" }
+	#Use SSL for all requests except for in development
+	use Rack::SSL, :exclude => lambda { |env| env["SERVER_NAME"] == "localhost" || env["SERVER_NAME"] == "mlm-mbp.local"}
 	
 	use Rack::Session::Pool, :expire_after => 2592000
 	set :session_secret, ENV['SESSION_KEY']
 	
+	#/configuration is the default page
 	not_found do
 		redirect '/configuration'
 	end
@@ -33,6 +35,8 @@ class App < Sinatra::Base
 		session[:user_name] = params[:user_name]
 		session[:password] = params[:user_password]
 		path = '/configuration'
+		
+		#the referring site is set by functions.js in the client and passed as a post param
 		if params[:referrer]!=''
 			path = CGI::unescape(params[:referrer])
 		end
@@ -100,8 +104,7 @@ class App < Sinatra::Base
 
 	get '/logOut' do
 		session.clear
-		@server = 'http://'+request.env['HTTP_HOST']
-	    haml :logOut,  :locals => { :title => 'Logged Out: XBee Garage Door',:log_state => "Log In",:log_state_url => '/logIn' }
+		redirect '/login'
 	end
 	
 end
