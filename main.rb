@@ -16,9 +16,7 @@ module Main
 class App < Sinatra::Base
 
 	#Use SSL for all requests except for in development
-	use Rack::SSL, :exclude => lambda { |env| env["SERVER_NAME"] == "localhost" || env["SERVER_NAME"] == "mlm-mbp.local"}
 	
-	use Rack::Session::Pool, :expire_after => 2592000, :key => 'rack.session', :secret => settings.session_secret  || 'session secret'	
 	
 	#/configuration is the default page
 	not_found do
