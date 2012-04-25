@@ -200,7 +200,10 @@ def getGateways
 		
 	gateways = Hash.new
 	json['items'].each do |i| 
-		gateways[i['devConnectwareId']] = getXBees(i['devConnectwareId'])
+		begin
+			gateways[i['devConnectwareId']] = getXBees(i['devConnectwareId'])
+		rescue
+		end
 	end
 	
 	return gateways
